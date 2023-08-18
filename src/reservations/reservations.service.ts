@@ -4,13 +4,21 @@ import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Reservation } from './entities/reservation.entity';
 import { Repository } from 'typeorm';
+import { Book } from 'src/books/entities/book.entity';
+import { Reader } from 'src/readers/entities/reader.entity';
 
 @Injectable()
 export class ReservationsService {
 
   constructor(
     @InjectRepository(Reservation)
-    private reservationsRepository: Repository<Reservation>
+    private reservationsRepository: Repository<Reservation>,
+
+    @InjectRepository(Book)
+    private booksRepository: Repository<Book>,
+
+    @InjectRepository(Reader)
+    private readersRepository: Repository<Reader>,
   ){}
 
   async create(createReservationDto: CreateReservationDto) {

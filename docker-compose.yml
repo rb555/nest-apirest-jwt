@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db_library
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_library
+      MYSQL_USER: user_crud
+      MYSQL_PASSWORD: 'labiblioteca'
+    volumes:
+      - ./mysql:/var/lib/mysql
+    ports:
+      - "4001:3306"

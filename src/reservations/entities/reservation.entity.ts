@@ -12,9 +12,6 @@ export class Reservation {
     id_reader: number;
 
     @Column()
-    id_book: number;
-
-    @Column()
     date: Date;
 
     @ManyToOne(() => Book, (book) => book.id, {

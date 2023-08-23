@@ -14,7 +14,7 @@ export class AuthService {
 
     async register({name,email,password}: RegisterDto){ 
 
-        const user = await this.usersService.findOneByEmail(email);
+        const user = await this.usersService.findOneByEmailWithPassword(email);
         if(user){
             throw new BadRequestException('User already exists');
         }
@@ -32,7 +32,7 @@ export class AuthService {
 
 
     async login({email, password}: LoginDto){
-        const user = await this.usersService.findOneByEmail(email);
+        const user = await this.usersService.findOneByEmailWithPassword(email);
         if(!user){
             throw new UnauthorizedException('Invalid credentials');
         }
@@ -52,6 +52,6 @@ export class AuthService {
     }
 
     async profile ({email,role}: {email:string; role: string}){
-        return await this.usersService.findOneByEmail(email);
+        return await this.usersService.findOneByEmailWithPassword(email);
     }
 }

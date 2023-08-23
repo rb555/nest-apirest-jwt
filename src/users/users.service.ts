@@ -18,8 +18,11 @@ export class UsersService {
     return this.userRepository.save(createUserDto);
   }
 
-  findOneByEmail(email:string){
-    return this.userRepository.findOneBy({email})
+  findOneByEmailWithPassword(email:string){
+    return this.userRepository.findOne({
+      where: {email},
+      select: ['id','name','email','password','role'],
+    });
   }
 
   findAll() {

@@ -3,8 +3,10 @@ import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { Request } from 'express';
-import { Role } from './enums/rol.enum';
+import { Role } from '../common/enums/rol.enum';
 import { Auth } from './decorators/auth.decorators';
+import { ActiveUser } from 'src/common/enums/decorators/active-user.decorator';
+import { UserActiveInterface } from 'src/common/enums/interfaces/user-active.interface';
 
 interface RequestWithUser extends Request{
     user: {
@@ -40,8 +42,9 @@ export class AuthController {
 
     @Get('profile')
     @Auth(Role.ADMIN)
-    profile(@Req() req: RequestWithUser) {  
-        return this.authService.profile(req.user);
+    profile(@ActiveUser() user: UserActiveInterface) {  
+        console.log(user)
+        return this.authService.profile(user);
         }
     }
 

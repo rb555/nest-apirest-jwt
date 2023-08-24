@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -14,8 +14,17 @@ export class BooksService {
   ){}
 
   async create(createBookDto: CreateBookDto) {
-    const book = this.booksRepository.create(createBookDto);
-    return await this.booksRepository.save(book);
+    const book = await this.booksRepository.findOneBy({title: createBookDto.title,
+    });
+
+    if(!book){
+      throw new BadRequestException('Book not found');
+    }
+
+    return await this.booksRepository.save({
+      ...createBookDto,
+      book: book,
+    });
   }
 
   async findAll() {

@@ -2,7 +2,12 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ReadersService } from './readers.service';
 import { CreateReaderDto } from './dto/create-reader.dto';
 import { UpdateReaderDto } from './dto/update-reader.dto';
+import { Auth } from 'src/auth/decorators/auth.decorators';
+import { Role } from 'src/common/enums/rol.enum';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('readers')
+@Auth(Role.ADMIN)
 @Controller('readers')
 export class ReadersController {
   constructor(private readonly readersService: ReadersService) {}

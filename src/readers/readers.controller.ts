@@ -4,9 +4,11 @@ import { CreateReaderDto } from './dto/create-reader.dto';
 import { UpdateReaderDto } from './dto/update-reader.dto';
 import { Auth } from 'src/auth/decorators/auth.decorators';
 import { Role } from 'src/common/enums/rol.enum';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+
 
 @ApiTags('readers')
+@ApiBearerAuth()
 @Auth(Role.ADMIN)
 @Controller('readers')
 export class ReadersController {
